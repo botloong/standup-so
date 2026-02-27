@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_API_URL =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,9 +10,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Input is required" }, { status: 400 });
     }
 
-    if (!GEMINI_API_KEY) {
+    if (!GROQ_API_KEY) {
       return NextResponse.json(
-        { error: "Gemini API key not configured" },
+        { error: "API key not configured" },
         { status: 500 }
       );
     }
@@ -46,21 +44,23 @@ Format your response exactly like this:
 **🚧 Blockers**
 [content]`;
 
-    const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${GROQ_API_KEY}`,
+      },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 512,
-        },
+        model: "llama-3.1-8b-instant",
+        messages: [{ role: "user", content: prompt }],
+        temperature: 0.7,
+        max_tokens: 512,
       }),
     });
 
     if (!response.ok) {
       const err = await response.text();
-      console.error("Gemini API error:", err);
+      console.error("Groq API error:", err);
       return NextResponse.json(
         { error: "AI generation failed. Please try again." },
         { status: 500 }
@@ -68,8 +68,7 @@ Format your response exactly like this:
     }
 
     const data = await response.json();
-    const text =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
+    const text = data?.choices?.[0]?.message?.content ?? "";
 
     if (!text) {
       return NextResponse.json(
