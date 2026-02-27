@@ -1,100 +1,147 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight, Zap, Clock, Copy, GitCommit } from "lucide-react";
+
+export default function LandingPage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen bg-background">
+      {/* Nav */}
+      <nav className="border-b border-border/40 backdrop-blur-sm sticky top-0 z-50 bg-background/80">
+        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-md bg-primary flex items-center justify-center">
+              <Zap className="w-4 h-4 text-white" />
+            </div>
+            <span className="font-bold text-lg">Standup.so</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <Badge variant="outline" className="text-xs border-primary/50 text-primary hidden sm:flex">
+              Free: 5 reports/day
+            </Badge>
+            <Link href="/generate">
+              <Button size="sm" className="bg-primary hover:bg-primary/90">
+                Try it free <ArrowRight className="w-3 h-3 ml-1" />
+              </Button>
+            </Link>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </nav>
+
+      {/* Hero */}
+      <section className="max-w-4xl mx-auto px-4 py-24 text-center">
+        <Badge className="mb-6 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20">
+          ✨ AI-Powered Standup Reports
+        </Badge>
+        <h1 className="text-5xl sm:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-br from-white via-white to-white/60 bg-clip-text text-transparent">
+          Standups done in<br />
+          <span className="text-primary">10 seconds flat.</span>
+        </h1>
+        <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
+          Paste your git commits or task list. Get a polished standup report with Yesterday, Today, and Blockers — ready to share with your team.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <Link href="/generate">
+            <Button size="lg" className="bg-primary hover:bg-primary/90 text-base px-8">
+              Generate my standup <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </Link>
+        </div>
+        <p className="text-sm text-muted-foreground mt-4">Free · No sign-up required · 5 reports/day</p>
+      </section>
+
+      {/* How it works */}
+      <section className="max-w-5xl mx-auto px-4 py-16">
+        <h2 className="text-3xl font-bold text-center mb-12">How it works</h2>
+        <div className="grid sm:grid-cols-3 gap-6">
+          {[
+            {
+              icon: <GitCommit className="w-6 h-6 text-primary" />,
+              step: "1",
+              title: "Paste your work",
+              desc: "Git commits, task list, Jira tickets — anything that describes your day.",
+            },
+            {
+              icon: <Zap className="w-6 h-6 text-primary" />,
+              step: "2",
+              title: "AI does the magic",
+              desc: "Gemini AI reads your input and structures it into a clean standup format.",
+            },
+            {
+              icon: <Copy className="w-6 h-6 text-primary" />,
+              step: "3",
+              title: "Copy and share",
+              desc: "One click to copy your polished report. Paste into Slack, Teams, or email.",
+            },
+          ].map((item) => (
+            <div
+              key={item.step}
+              className="bg-card border border-border rounded-xl p-6 flex flex-col gap-3"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-bold text-primary">
+                  {item.step}
+                </div>
+                {item.icon}
+              </div>
+              <h3 className="font-semibold text-lg">{item.title}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Example output */}
+      <section className="max-w-3xl mx-auto px-4 py-16">
+        <h2 className="text-3xl font-bold text-center mb-4">Example output</h2>
+        <p className="text-center text-muted-foreground mb-10">From messy commits to clean standup in seconds.</p>
+        <div className="grid sm:grid-cols-2 gap-4">
+          <div className="bg-card border border-border rounded-xl p-5">
+            <p className="text-xs font-mono text-muted-foreground mb-3 uppercase tracking-wider">Input</p>
+            <pre className="text-sm text-foreground/80 whitespace-pre-wrap font-mono leading-relaxed">{`fix: auth bug on login page
+feat: add user dashboard
+wip: working on API rate limiting
+reviewed PR #42`}</pre>
+          </div>
+          <div className="bg-card border border-primary/20 rounded-xl p-5">
+            <p className="text-xs font-mono text-primary mb-3 uppercase tracking-wider">✨ Generated standup</p>
+            <div className="text-sm text-foreground/80 space-y-3 leading-relaxed">
+              <div>
+                <p className="font-semibold text-foreground">✅ Yesterday</p>
+                <p>Fixed authentication bug on the login page. Completed user dashboard feature. Reviewed and provided feedback on PR #42.</p>
+              </div>
+              <div>
+                <p className="font-semibold text-foreground">🎯 Today</p>
+                <p>Continue implementing API rate limiting. Testing and QA for recent changes.</p>
+              </div>
+              <div>
+                <p className="font-semibold text-foreground">🚧 Blockers</p>
+                <p>None at this time.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="max-w-2xl mx-auto px-4 py-20 text-center">
+        <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-2xl p-10">
+          <Clock className="w-10 h-10 text-primary mx-auto mb-4" />
+          <h2 className="text-3xl font-bold mb-3">Save time every morning</h2>
+          <p className="text-muted-foreground mb-6">Stop dreading standups. Let AI write them for you.</p>
+          <Link href="/generate">
+            <Button size="lg" className="bg-primary hover:bg-primary/90">
+              Generate my standup now <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-border/40 py-8 text-center text-sm text-muted-foreground">
+        <p>© 2025 Standup.so · Built for developers who hate writing standups</p>
       </footer>
     </div>
   );
