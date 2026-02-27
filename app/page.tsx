@@ -141,7 +141,7 @@ reviewed PR #42`}</pre>
 
       {/* Footer */}
       <footer className="border-t border-border/40 py-8 text-center text-sm text-muted-foreground">
-        <p>© 2025 Standup.so · Built for developers who hate writing standups</p>
+        <p>© 2026 Standup.so · Built for developers who hate writing standups</p>
         <p className="mt-2">
           <Link href="/terms" className="hover:text-foreground mx-2">Terms</Link>·
           <Link href="/privacy" className="hover:text-foreground mx-2">Privacy</Link>
