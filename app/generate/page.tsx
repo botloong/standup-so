@@ -440,6 +440,12 @@ export default function GeneratePage() {
           </div>
         </div>
       </div>
+      <footer className="border-t border-border/40 py-6 text-center text-sm text-muted-foreground mt-10">
+        <p>
+          <Link href="/terms" className="hover:text-foreground mx-2">Terms</Link>·
+          <Link href="/privacy" className="hover:text-foreground mx-2">Privacy</Link>
+        </p>
+      </footer>
     </div>
   );
 }
