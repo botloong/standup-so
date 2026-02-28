@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Zap, Clock, Copy, GitCommit } from "lucide-react";
+import { ArrowRight, Zap, Clock, Copy, GitCommit, Check, Crown } from "lucide-react";
 
 export default function LandingPage() {
   return (
@@ -67,7 +67,7 @@ export default function LandingPage() {
               icon: <Zap className="w-6 h-6 text-primary" />,
               step: "2",
               title: "AI does the magic",
-              desc: "Gemini AI reads your input and structures it into a clean standup format.",
+              desc: "AI reads your input and structures it into a clean standup format in seconds.",
             },
             {
               icon: <Copy className="w-6 h-6 text-primary" />,
@@ -121,6 +121,45 @@ reviewed PR #42`}</pre>
                 <p>None at this time.</p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section className="max-w-4xl mx-auto px-4 py-16">
+        <h2 className="text-3xl font-bold text-center mb-4">Simple pricing</h2>
+        <p className="text-center text-muted-foreground mb-10">Start free. Upgrade when you need more.</p>
+        <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+          <div className="bg-card border border-border rounded-xl p-6 flex flex-col gap-4">
+            <div>
+              <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-1">Free</p>
+              <p className="text-4xl font-bold">$0</p>
+            </div>
+            <ul className="flex flex-col gap-2 text-sm text-muted-foreground flex-1">
+              <li className="flex items-center gap-2"><Check className="w-4 h-4 text-primary shrink-0" />5 reports per day</li>
+              <li className="flex items-center gap-2"><Check className="w-4 h-4 text-primary shrink-0" />No sign-up required</li>
+              <li className="flex items-center gap-2"><Check className="w-4 h-4 text-primary shrink-0" />All output formats</li>
+            </ul>
+            <Link href="/generate">
+              <Button variant="outline" className="w-full">Get started free</Button>
+            </Link>
+          </div>
+          <div className="bg-card border border-primary/50 rounded-xl p-6 flex flex-col gap-4 relative">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+              <Badge className="bg-primary text-white border-0 text-xs">Most popular</Badge>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-1">Pro</p>
+              <p className="text-4xl font-bold">$6<span className="text-lg font-normal text-muted-foreground">/mo</span></p>
+            </div>
+            <ul className="flex flex-col gap-2 text-sm flex-1">
+              <li className="flex items-center gap-2"><Check className="w-4 h-4 text-primary shrink-0" /><strong>Unlimited</strong> reports per day</li>
+              <li className="flex items-center gap-2"><Check className="w-4 h-4 text-primary shrink-0" />Priority AI generation</li>
+              <li className="flex items-center gap-2"><Check className="w-4 h-4 text-primary shrink-0" />Cancel anytime</li>
+            </ul>
+            <Link href="/generate">
+              <Button className="w-full bg-primary hover:bg-primary/90 gap-2"><Crown className="w-4 h-4" />Upgrade to Pro</Button>
+            </Link>
           </div>
         </div>
       </section>
