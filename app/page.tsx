@@ -44,12 +44,12 @@ export default function LandingPage() {
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link href="/generate">
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-base px-8">
-              Generate my standup <ArrowRight className="w-4 h-4 ml-2" />
+            <Button size="lg" className="bg-primary hover:bg-primary/90 text-base px-8 h-14">
+              Try it free — takes 10 seconds <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </Link>
         </div>
-        <p className="text-sm text-muted-foreground mt-4">Free · No sign-up required · 5 reports/day</p>
+        <p className="text-sm text-muted-foreground mt-4">✓ Free &nbsp;·&nbsp; ✓ No sign-up &nbsp;·&nbsp; ✓ Works with git commits, Jira, or plain text</p>
       </section>
 
       {/* How it works */}
