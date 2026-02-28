@@ -40,7 +40,7 @@ export default function LandingPage() {
           <span className="text-primary">10 seconds flat.</span>
         </h1>
         <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
-          Paste your git commits or task list. Get a polished standup report with Yesterday, Today, and Blockers — ready to share with your team.
+          Paste your git commits or task list. Get a polished standup report with Yesterday, Today, and Blockers — ready to share with your team. No Slack bot. No setup. Just paste and go.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link href="/generate">
