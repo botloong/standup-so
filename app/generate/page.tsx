@@ -15,6 +15,7 @@ import {
   AlertCircle,
   Crown,
   X,
+  Share2,
 } from "lucide-react";
 
 const DAILY_LIMIT = 5;
@@ -139,6 +140,18 @@ export default function GeneratePage() {
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [upgrading, setUpgrading] = useState(false);
 
+  // Keyboard shortcut: Cmd/Ctrl+Enter to generate
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+        e.preventDefault();
+        handleGenerate();
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [handleGenerate]);
+
   // Check pro status via cookie on mount, and handle ?pro=success redirect
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -221,6 +234,11 @@ export default function GeneratePage() {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }, [report]);
+
+  const handleShareTwitter = useCallback(() => {
+    const text = "Just wrote my daily standup in 10 seconds with @standupso ⚡\n\nFree AI-powered standup generator — no signup needed.\n\nhttps://standup.so";
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, "_blank");
+  }, []);
 
   const parsed = report ? parseReport(report) : null;
 
@@ -331,28 +349,31 @@ export default function GeneratePage() {
               </div>
             )}
 
-            <Button
-              onClick={handleGenerate}
-              disabled={loading || !input.trim() || (remaining <= 0 && !isPro)}
-              className="w-full bg-primary hover:bg-primary/90 h-11"
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Generating...
-                </>
-              ) : remaining <= 0 && !isPro ? (
-                <>
-                  <Crown className="w-4 h-4 mr-2" />
-                  Upgrade to Generate More
-                </>
-              ) : (
-                <>
-                  <Zap className="w-4 h-4 mr-2" />
-                  Generate Standup
-                </>
-              )}
-            </Button>
+            <div className="flex gap-2 items-center">
+              <Button
+                onClick={handleGenerate}
+                disabled={loading || !input.trim() || (remaining <= 0 && !isPro)}
+                className="flex-1 bg-primary hover:bg-primary/90 h-11"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Generating...
+                  </>
+                ) : remaining <= 0 && !isPro ? (
+                  <>
+                    <Crown className="w-4 h-4 mr-2" />
+                    Upgrade to Generate More
+                  </>
+                ) : (
+                  <>
+                    <Zap className="w-4 h-4 mr-2" />
+                    Generate Standup
+                  </>
+                )}
+              </Button>
+              <span className="text-xs text-muted-foreground hidden sm:block whitespace-nowrap">⌘↵</span>
+            </div>
 
             {remaining <= 0 && !isPro && (
               <Button
@@ -424,16 +445,26 @@ export default function GeneratePage() {
                   <ReportSection emoji="🎯" title="Today" content={parsed.today} />
                   <ReportSection emoji="🚧" title="Blockers" content={parsed.blockers} />
 
-                  <Button
-                    onClick={handleCopy}
-                    className="w-full mt-2 bg-primary hover:bg-primary/90"
-                  >
-                    {copied ? (
-                      <><Check className="w-4 h-4 mr-2" /> Copied to clipboard!</>
-                    ) : (
-                      <><Copy className="w-4 h-4 mr-2" /> Copy standup</>
-                    )}
-                  </Button>
+                  <div className="flex gap-2 mt-2">
+                    <Button
+                      onClick={handleCopy}
+                      className="flex-1 bg-primary hover:bg-primary/90"
+                    >
+                      {copied ? (
+                        <><Check className="w-4 h-4 mr-2" /> Copied!</>
+                      ) : (
+                        <><Copy className="w-4 h-4 mr-2" /> Copy standup</>
+                      )}
+                    </Button>
+                    <Button
+                      onClick={handleShareTwitter}
+                      variant="outline"
+                      className="border-border/60 hover:bg-muted/40 px-3"
+                      title="Share on X / Twitter"
+                    >
+                      <Share2 className="w-4 h-4" />
+                    </Button>
+                  </div>
                 </div>
               )}
             </div>
