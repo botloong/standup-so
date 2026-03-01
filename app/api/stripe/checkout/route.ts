@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+const getStripe = () => new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 const PRICE_ID = process.env.STRIPE_PRICE_ID || "price_1T5K2bPBQY0kVXYaS7fZiY7Y";
 
@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
   try {
     const origin = req.headers.get("origin") || "https://standup-so.vercel.app";
 
-    const session = await stripe.checkout.sessions.create({
+    const session = await getStripe().checkout.sessions.create({
       mode: "subscription",
       payment_method_types: ["card"],
       line_items: [

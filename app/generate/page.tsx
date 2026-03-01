@@ -140,18 +140,6 @@ export default function GeneratePage() {
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [upgrading, setUpgrading] = useState(false);
 
-  // Keyboard shortcut: Cmd/Ctrl+Enter to generate
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
-        e.preventDefault();
-        handleGenerate();
-      }
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [handleGenerate]);
-
   // Check pro status via cookie on mount, and handle ?pro=success redirect
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
