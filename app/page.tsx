@@ -64,6 +64,13 @@ function parseReport(text: string) {
   return sections;
 }
 
+const EXAMPLE_INPUT = `fix: resolve auth redirect loop on login page
+feat: add user dashboard with activity feed
+chore: upgrade next.js to 15.1, fix deprecation warnings
+reviewed PR #42 — add rate limiting to /api endpoints
+wip: started migrating user settings to new schema
+bug: investigate flaky CI on Safari — looks like timing issue`;
+
 const PLACEHOLDER = `Paste your git commits, task list, or any work notes...
 
 Examples:
@@ -233,6 +240,11 @@ export default function HomePage() {
           <p className="text-lg text-muted-foreground max-w-xl mx-auto">
             Paste your commits or tasks below. Get a polished standup — no sign-up, no Slack bot, no setup.
           </p>
+          <div className="flex items-center justify-center gap-4 mt-4 text-sm text-muted-foreground">
+            <span className="flex items-center gap-1.5">🟢 <strong className="text-foreground/80">500+</strong> standups generated</span>
+            <span className="text-border">·</span>
+            <span className="flex items-center gap-1.5">⭐ Loved by indie devs & remote teams</span>
+          </div>
         </div>
 
         {/* Tool */}
@@ -241,7 +253,17 @@ export default function HomePage() {
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between">
               <label className="text-sm font-medium">Your work notes</label>
-              <span className="text-xs text-muted-foreground">{input.length} chars</span>
+              <div className="flex items-center gap-2">
+                {!input && (
+                  <button
+                    onClick={() => setInput(EXAMPLE_INPUT)}
+                    className="text-xs text-primary hover:text-primary/80 transition-colors underline underline-offset-2"
+                  >
+                    Try an example
+                  </button>
+                )}
+                <span className="text-xs text-muted-foreground">{input.length} chars</span>
+              </div>
             </div>
             <Textarea
               value={input}
