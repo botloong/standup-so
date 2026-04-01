@@ -43,6 +43,20 @@ export default function RootLayout({
         {children}
         <Analytics />
         <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=G-QDLJB4GELH`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-QDLJB4GELH');
+            `,
+          }}
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
